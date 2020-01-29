@@ -21,6 +21,7 @@ import android.support.v7.app.AppCompatActivity;
 
 
 import com.example.android.android_me.R;
+import com.example.android.android_me.data.AndroidImageAssets;
 
 // This activity will display a custom Android image composed of three body parts: head, body, and legs
 public class AndroidMeActivity extends AppCompatActivity {
@@ -39,15 +40,34 @@ public class AndroidMeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_android_me);
 
-        // Todo5 (5) Crete new BodyPartFragment  instance and display it using the FragmentManager
-        BodyPartFragment headFragment = new BodyPartFragment();
+        if(savedInstanceState == null) {
 
-        // Use a FragmentManager and transaction to add the fragment to the screen
-        FragmentManager fragmentManager = getFragmentManager();
+            // Todo5 (5) Crete new BodyPartFragment  instance and display it using the FragmentManager
+            BodyPartFragment headFragment = new BodyPartFragment();
 
-        // Fragment transaction
-        fragmentManager.beginTransaction()
-                .add(R.id.head_container, headFragment)
-                .commit();
+            headFragment.setmImageIds(AndroidImageAssets.getHeads());
+            headFragment.setmListIndex(2);
+
+            // Use a FragmentManager and transaction to add the fragment to the screen
+            FragmentManager fragmentManager = getFragmentManager();
+
+            // Fragment transaction
+            fragmentManager.beginTransaction()
+                    .add(R.id.head_container, headFragment)
+                    .commit();
+
+
+            BodyPartFragment bodyFragment = new BodyPartFragment();
+            bodyFragment.setmImageIds(AndroidImageAssets.getBodies());
+            fragmentManager.beginTransaction()
+                    .add(R.id.body_container, bodyFragment)
+                    .commit();
+
+            BodyPartFragment legFragment = new BodyPartFragment();
+            legFragment.setmImageIds(AndroidImageAssets.getLegs());
+            fragmentManager.beginTransaction()
+                    .add(R.id.leg_container, legFragment)
+                    .commit();
+        }
     }
 }
