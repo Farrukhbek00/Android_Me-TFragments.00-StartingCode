@@ -16,6 +16,7 @@
 
 package com.example.android.android_me.ui;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -42,11 +43,15 @@ public class AndroidMeActivity extends AppCompatActivity {
 
         if(savedInstanceState == null) {
 
+
             // Todo5 (5) Crete new BodyPartFragment  instance and display it using the FragmentManager
             BodyPartFragment headFragment = new BodyPartFragment();
 
             headFragment.setmImageIds(AndroidImageAssets.getHeads());
-            headFragment.setmListIndex(2);
+            headFragment.setmListIndex(1);
+
+            int headIndex = getIntent().getIntExtra("headIndex", 0);
+            headFragment.setmListIndex(headIndex);
 
             // Use a FragmentManager and transaction to add the fragment to the screen
             FragmentManager fragmentManager = getFragmentManager();
@@ -59,12 +64,20 @@ public class AndroidMeActivity extends AppCompatActivity {
 
             BodyPartFragment bodyFragment = new BodyPartFragment();
             bodyFragment.setmImageIds(AndroidImageAssets.getBodies());
+
+            int bodyIndex = getIntent().getIntExtra("bodyIndex", 0);
+            bodyFragment.setmListIndex(bodyIndex);
+
             fragmentManager.beginTransaction()
                     .add(R.id.body_container, bodyFragment)
                     .commit();
 
             BodyPartFragment legFragment = new BodyPartFragment();
             legFragment.setmImageIds(AndroidImageAssets.getLegs());
+
+            int legIndex = getIntent().getIntExtra("legIndex", 0);
+            legFragment.setmListIndex(legIndex);
+
             fragmentManager.beginTransaction()
                     .add(R.id.leg_container, legFragment)
                     .commit();
